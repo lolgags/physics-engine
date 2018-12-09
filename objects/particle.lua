@@ -3,19 +3,33 @@ local vector3 = require("lib.vector3")
 local states = require("lib.states")
 local particle = class:derive("particle")
 
-function particle:new(x, v, a, m, c)
+function isState(s)
+    for index, value in pairs(states) do
+        if value == s then
+            return true
+        end
+    end
+    return false
+end
+
+function particle:new(x, v, a, s)
     self.position = x
     self.velocity = v
     self.acceleration = a
-    self.mass = m
-    self.charge = c 
+
+    for index, value in pairs(s) do
+        if isState(index) == false then
+            error("The state: " .. value .. ", does not exist!")
+        end
+    end
+    self.states = s
 
     self.force = vector3(0, 0, 0)
     self.gravity = 10
 end
 
 function particle:update(time)
-    self.acceleration = self.force:mul(1 / self.mass)
+    self.acceleration = self.force:mul(1 / self.states.mass)
 
     v1 = self.acceleration:mul(time)
     self.velocity = vector3(v1.x + self.velocity.x, v1.y + self.velocity.y, 0)
@@ -26,7 +40,7 @@ function particle:update(time)
 end
 
 function particle:draw()
-    love.graphics.circle("fill", self.position.x, self.position.y, self.mass * 3)
+    love.graphics.circle("fill", self.position.x, self.position.y, self.states.mass * 3)
 end
 
 return particle
