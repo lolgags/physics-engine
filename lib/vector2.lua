@@ -11,6 +11,10 @@ function Vec2:new(x, y)
     self.y = y or 0
 end
 
+function Vec2:distance(vector)
+    return Vec2(self.x - vector.x, self.y - vector.y):mag()
+end
+
 function Vec2:unit()
     return self:div(self:mag())
 end
