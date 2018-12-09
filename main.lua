@@ -12,9 +12,9 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     width, height = love.graphics.getDimensions()
 
-    testparticle = particle(vector3(width / 3, height / 2, 0), vector3(0, 0, 0), vector3(0, 0, 0), 20, -1)
-    testparticle2 = particle(vector3(2 * width / 3, height / 2, 0), vector3(0, 0, 0), vector3(0, 0, 0), 0.5, -1)
-    testparticle3 = particle(vector3(width / 2, height / 3, 0), vector3(0, 0, 0), vector3(0, 0, 0), 5, 5)
+    testparticle = particle(vector3(width / 3, height / 2, 0), vector3(0, 0, 0), vector3(0, 0, 0), {mass = 20, charge = -1})
+    testparticle2 = particle(vector3(2 * width / 3, height / 2, 0), vector3(0, 0, 0), vector3(0, 0, 0), {mass = 10, charge = -1})
+    testparticle3 = particle(vector3(width / 2, height / 3, 0), vector3(0, 0, 0), vector3(0, 0, 0), {mass = 5, charge = 5})
 end
 
 function love.update()
@@ -27,7 +27,7 @@ function love.update()
     mousevector = vector2(love.mouse.getX(), love.mouse.getY())
     mousedistance = mousevector:distance(vector2(testparticle.position.x, testparticle.position.y))
 
-    if mousedistance <= testparticle.mass * 3 then
+    if mousedistance <= testparticle.states.mass * 3 then
         if love.mouse.isDown("1") then
             testparticle.position.x = mousevector.x
             testparticle.position.y = mousevector.y
