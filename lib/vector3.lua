@@ -15,8 +15,11 @@ function Vec3:unit()
 end
 
 function Vec3:distance(vector)
-    newvector = Vec3(self.x - vector.x, self.y - vector.y, self.z - vector.y)
-    return sqrt(newvector.x * newvector.x + newvector.y * newvector.y + newvector.z * newvector.z)
+    return self:sub(vector):mag()
+end
+
+function Vec3:add(vector)
+    return Vec3(self.x + vector.x, self.y + vector.y, self.z + vector.z)
 end
 
 function Vec3:sub(vector)

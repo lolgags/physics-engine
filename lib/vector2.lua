@@ -1,5 +1,5 @@
 local class = require("lib.class")
-local Vec2 = class:derive("Vector2")
+local Vec2 = class:derive("vector2")
 
 local sqrt = math.sqrt
 local pow = math.pow
@@ -11,8 +11,23 @@ function Vec2:new(x, y)
     self.y = y or 0
 end
 
+function Vec2:setX(x)
+    self.x = x
+end
+
+function Vec2:setY(y)
+    self.y = y
+end
+
+function Vec2:rotate(angle)
+    x = self.x * math.cos(-angle) - self.y * math.sin(-angle)
+    y = self.x * math.sin(-angle) + self.y * math.cos(-angle)
+    self.x = x
+    self.y = y
+end
+
 function Vec2:distance(vector)
-    return Vec2(self.x - vector.x, self.y - vector.y):mag()
+    return self:sub(vector):mag()
 end
 
 function Vec2:unit()
@@ -23,33 +38,24 @@ function Vec2:mag()
     return sqrt(pow(self.x, 2) + pow(self.y, 2))
 end
 
-function Vec2:add()
-    return Vec2(self.x + self.x, self.y + self.y)
+function Vec2:add(vector)
+    return Vec2(self.x + vector.x, self.y + vector.y)
 end
 
-function Vec2:sub()
-    return Vec2(self.x - self.x, self.y - self.y)
+function Vec2:sub(vector)
+    return Vec2(self.x - vector.x, self.y - vector.y)
 end
 
-function Vec2:div(divisor)
-    return Vec2(self.x / divisor, self.y / divisor)
+function Vec2:div(n)
+    return Vec2(self.x / n, self.y / n)
 end
 
-function Vec2:mul(v1, mult)
-    return Vec2(self.x * mult, self.y * mult)
-end
-
--- TODO: scratch my head and work on this function
-function Vec2:lerp(goal, alpha)
-    return (1 - alpha) * (self.x + self.y) + alpha * (goal.x + goal.y)
+function Vec2:mul(n)
+    return Vec2(self.x * n, self.y * n)
 end
 
 function Vec2:mid(vector)
     return Vec2((self.x + vector.x) / 2, (self.y + vector.y) / 2)
-end
-
-function Vec2:copy()
-    return Vec2(self.x, self.y)
 end
 
 function Vec2:opposite()
