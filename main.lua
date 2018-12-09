@@ -45,7 +45,7 @@ function love.update()
 end
 
 function love.draw()
-    love.graphics.print("Game time: " .. gametime:getTime() .. ", FPS: " .. love.timer.getFPS(), 10, 10)
+    love.graphics.print("Simulation time: " .. gametime:getTime() .. ", FPS: " .. love.timer.getFPS(), 10, 10)
 
     for p = 1, #system.particles do 
         particle = system.particles[p]
