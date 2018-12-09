@@ -16,6 +16,7 @@ function particle:new(x, v, a, s)
     self.position = x
     self.velocity = v
     self.acceleration = a
+    self.momentum = 0
 
     for index, value in pairs(s) do
         if isState(index) == false then
@@ -26,6 +27,10 @@ function particle:new(x, v, a, s)
 
     self.force = vector3(0, 0, 0)
     self.gravity = 10
+end
+
+function particle:distance(particle)
+    return self.position:distance(particle.distance)
 end
 
 function particle:update(time)
@@ -40,7 +45,7 @@ function particle:update(time)
 end
 
 function particle:draw()
-    love.graphics.circle("fill", self.position.x, self.position.y, self.states.mass * 3)
+    love.graphics.circle("fill", self.position.x, self.position.y, self.states.mass)
 end
 
 return particle
