@@ -3,16 +3,15 @@ local vector3 = require("lib.vector3")
 local states = require("lib.states")
 local particle = class:derive("particle")
 
-function particle:new(x, v, a, m)
+function particle:new(x, v, a, m, c)
     self.position = x
     self.velocity = v
     self.acceleration = a
     self.mass = m
-    
+    self.charge = c 
+
     self.force = vector3(0, 0, 0)
     self.gravity = 10
-    
-    self.charge = 1.0 
 end
 
 function particle:update(time)
